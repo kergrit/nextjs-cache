@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Cache Performance Demo
 
-## Getting Started
+## 🐛 Current Issue: Cache Not Working in Docker
 
-First, run the development server:
+### Problem
+- Docker container is running old code without `cachedFetch()`
+- Many APIs show cache misses on every request
+- Next.js Data Cache is not being used
+
+### Solution: Rebuild Docker Container
+
+The code has been updated but the container needs to be rebuilt:
+
+```bash
+# Stop and remove old container
+docker-compose down
+
+# Rebuild with new code
+docker-compose build --no-cache
+
+# Start container
+docker-compose up -d
+
+# Check logs
+docker-compose logs -f nextjs-cache
+```
+
+### What Was Fixed
+
+1. ✅ All API calls now use `cachedFetch(url, revalidate)`
+2. ✅ Added cache directory permissions in Dockerfile
+3. ✅ Added volume mount for persistent cache
+4. ⏳ Needs rebuild to apply changes
+
+### Expected Behavior After Rebuild
+
+**First Request:**
+- All APIs: Cache MISS
+- Load time: ~400-900ms per API
+
+**Second Request (within TTL):**
+- All APIs: Cache HIT  
+- Load time: ~0-5ms
+
+### Verify Cache is Working
+
+Check logs for these patterns:
+```
+✅ Good: Cache HIT for jsonplaceholder-posts: 0ms
+❌ Bad: Cache MISS for jsonplaceholder-posts
+```
+
+## Local Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Visit http://localhost:3000/active-cache
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Docker Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker-compose up -d
+# Visit http://localhost:3003/active-cache
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture
 
-## Learn More
+- **Phase 1** (`/inactive-cache`): Direct API calls, no caching
+- **Phase 2** (`/active-cache`): Next.js fetch cache with revalidation
+- **Comparison** (`/comparison`): Side-by-side performance comparison
 
-To learn more about Next.js, take a look at the following resources:
+## Cache Strategy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Uses Next.js Data Cache with `fetch(url, { next: { revalidate: seconds } })`:
+- Persists across requests in `.next/cache` folder
+- Works in standalone Docker deployment
+- Automatic revalidation based on TTL
