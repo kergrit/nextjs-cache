@@ -10,7 +10,7 @@ export default function HomePage() {
         </h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Compare the performance difference between uncached and cached API calls 
-          using Next.js 14 caching strategies with 15+ different APIs.
+          using Next.js 14 caching strategies with 15 different APIs.
         </p>
       </div>
 
@@ -89,31 +89,39 @@ export default function HomePage() {
       </div>
 
         <div className="bg-white rounded-lg shadow-md p-8">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">APIs Included in Demo (12 APIs)</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">APIs Included in Demo (15 APIs)</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              'JSONPlaceholder',
-              'Random User',
-              'Dog CEO',
-              'Cat Facts',
-              'Advice Slip',
-              'Chuck Norris',
-              'Open Library',
-              'PokéAPI',
-              'CoinGecko',
-              'JokeAPI',
-              'Wikipedia'
+              { name: 'JSONPlaceholder Posts', endpoint: 'https://jsonplaceholder.typicode.com/posts?_limit=5' },
+              { name: 'JSONPlaceholder Users', endpoint: 'https://jsonplaceholder.typicode.com/users?_limit=5' },
+              { name: 'Dog CEO', endpoint: 'https://dog.ceo/api/breeds/image/random' },
+              { name: 'Cat Facts', endpoint: 'https://catfact.ninja/fact' },
+              { name: 'Advice Slip', endpoint: 'https://api.adviceslip.com/advice' },
+              { name: 'Chuck Norris', endpoint: 'https://api.chucknorris.io/jokes/random' },
+              { name: 'Open Library', endpoint: 'https://openlibrary.org/search.json?q=javascript&limit=5' },
+              { name: 'PokéAPI', endpoint: 'https://pokeapi.co/api/v2/pokemon/25' },
+              { name: 'CoinGecko', endpoint: 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1&sparkline=false' },
+              { name: 'JokeAPI', endpoint: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit' },
+              { name: 'Wikipedia', endpoint: 'https://en.wikipedia.org/api/rest_v1/page/random/summary' },
+              { name: 'Air Quality', endpoint: 'https://api.waqi.info/feed/bangkok/?token=demo' },
+              { name: 'Currency Exchange', endpoint: 'https://api.exchangerate-api.com/v4/latest/USD' },
+              { name: 'Aviation Weather', endpoint: 'https://aviationweather.gov/api/data/metar?ids=KJFK,KLAX,KORD,KDFW,KATL&format=json' },
+              { name: 'MealDB', endpoint: 'https://www.themealdb.com/api/json/v1/1/random.php' }
             ].map((api, index) => (
-              <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium text-gray-700">{api}</span>
+              <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="mb-2">
+                  <span className="text-sm font-semibold text-gray-900">{api.name}</span>
+                </div>
+                <a 
+                  href={api.endpoint}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-blue-600 hover:text-blue-800 font-mono bg-gray-100 p-2 rounded block hover:bg-gray-200 transition-colors break-all"
+                >
+                  {api.endpoint}
+                </a>
               </div>
             ))}
-          </div>
-          <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-sm text-yellow-800">
-              <strong>Note:</strong> Removed 4 problematic APIs (Numbers, Countries, Quotes, Bored) 
-              that were causing timeouts and errors for better demo experience.
-            </p>
           </div>
         </div>
     </div>

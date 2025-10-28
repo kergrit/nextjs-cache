@@ -1,5 +1,6 @@
 services:
   nextjs-cache:
+    image: kergrit/nextjs-cache
     build:
       context: .
       dockerfile: Dockerfile

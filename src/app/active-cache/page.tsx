@@ -59,7 +59,7 @@ export default async function ActiveCachePage() {
             </div>
             <div className="text-right">
               <div className="text-sm text-green-600">
-                <div>Total API calls: 12</div>
+                <div>Total API calls: {apiData.results.length}</div>
                 <div>Cache hits: <span className="font-bold text-green-600">{cacheHits}</span></div>
                 <div>Cache misses: <span className="font-bold text-orange-600">{cacheMisses}</span></div>
                 <div>Hit rate: <span className="font-bold text-green-600">{cacheHitRate}%</span></div>
@@ -140,18 +140,25 @@ export default async function ActiveCachePage() {
           <h4 className="font-medium text-yellow-900 mb-2">Cache Configuration:</h4>
           <div className="text-sm text-yellow-800 space-y-1">
             <div>• JSONPlaceholder: 5 minutes cache</div>
-            <div>• Random APIs: 30-60 seconds cache</div>
-            <div>• Static data: 30 minutes cache</div>
-            <div>• Crypto prices: 1 minute cache (frequent updates)</div>
+            <div>• Entertainment APIs: 30-60 seconds cache</div>
+            <div>• Financial APIs: 1-5 minutes cache</div>
+            <div>• Environmental APIs: 5 minutes cache</div>
+            <div>• MealDB: 5 minutes cache</div>
+            <div>• Wikipedia: 5 minutes cache</div>
           </div>
         </div>
         
         <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <h4 className="font-medium text-blue-900 mb-2">Debug Info:</h4>
           <div className="text-sm text-blue-800 space-y-1">
-            <div>• Cache entries: {cacheStats.entries.join(', ')}</div>
-            <div>• Total cache size: {cacheStats.size}</div>
-            <div>• Check browser console for cache logs</div>
+            <div>• Total APIs: {apiData.results.length} (15 APIs implemented)</div>
+            <div>• API Categories: Entertainment (6), Financial (2), Environmental (2), News (1), Sample Data (2), Advice (1), Food (1)</div>
+            <div>• Cache entries: {cacheStats.size}</div>
+            <div>• Cache keys: {cacheStats.entries.length > 0 ? cacheStats.entries.slice(0, 5).join(', ') + (cacheStats.entries.length > 5 ? '...' : '') : 'None'}</div>
+            <div>• Page load time: {totalPageLoadTime}ms</div>
+            <div>• API total time: {apiData.totalTime}ms</div>
+            <div>• Cache hit rate: {cacheHitRate}%</div>
+            <div>• Check browser console for detailed cache logs</div>
           </div>
         </div>
       </div>

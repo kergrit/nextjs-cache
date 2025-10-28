@@ -272,6 +272,301 @@ export interface WikipediaArticle {
   extract_html: string;
 }
 
+// New API interfaces for financial and environmental data
+
+export interface AirQuality {
+  status: string;
+  data: {
+    city: {
+      name: string;
+      geo: [number, number];
+      url: string;
+    };
+    aqi: number;
+    iaqi: {
+      pm25?: { v: number };
+      pm10?: { v: number };
+      o3?: { v: number };
+      no2?: { v: number };
+      so2?: { v: number };
+      co?: { v: number };
+    };
+    time: {
+      s: string;
+      tz: string;
+      v: number;
+    };
+  };
+}
+
+export interface GoldPrice {
+  timestamp: number;
+  metal: string;
+  currency: string;
+  exchange: string;
+  symbol: string;
+  prev_close_price: number;
+  open_price: number;
+  low_price: number;
+  high_price: number;
+  open_time: number;
+  price: number;
+  ch: number;
+  chp: number;
+  ask: number;
+  bid: number;
+}
+
+export interface CurrencyExchange {
+  success: boolean;
+  timestamp: number;
+  base: string;
+  date: string;
+  rates: Record<string, number>;
+}
+
+export interface OilPrice {
+  success: boolean;
+  timestamp: number;
+  base: string;
+  date: string;
+  rates: {
+    WTI?: number;
+    BRENT?: number;
+    NATURAL_GAS?: number;
+  };
+}
+
+export interface WeatherData {
+  coord: {
+    lon: number;
+    lat: number;
+  };
+  weather: Array<{
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
+  }>;
+  base: string;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+  visibility: number;
+  wind: {
+    speed: number;
+    deg: number;
+  };
+  clouds: {
+    all: number;
+  };
+  dt: number;
+  sys: {
+    type: number;
+    id: number;
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
+}
+
+export interface StockPrice {
+  symbol: string;
+  name: string;
+  price: number;
+  changesPercentage: number;
+  change: number;
+  dayLow: number;
+  dayHigh: number;
+  yearHigh: number;
+  yearLow: number;
+  marketCap: number;
+  priceAvg50: number;
+  priceAvg200: number;
+  volume: number;
+  avgVolume: number;
+  exchange: string;
+  open: number;
+  previousClose: number;
+  eps: number;
+  pe: number;
+  earningsAnnouncement: string;
+  sharesOutstanding: number;
+  timestamp: number;
+}
+
+export interface NewsArticle {
+  source: {
+    id: string;
+    name: string;
+  };
+  author: string;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string;
+}
+
+export interface SpaceData {
+  copyright: string;
+  date: string;
+  explanation: string;
+  hdurl: string;
+  media_type: string;
+  service_version: string;
+  title: string;
+  url: string;
+}
+
+export interface AviationWeather {
+  icaoId: string;
+  barometer: {
+    hg: number;
+    hpa: number;
+    kpa: number;
+    mb: number;
+  };
+  ceiling: {
+    code: string;
+    feet: number;
+    meters: number;
+  };
+  clouds: Array<{
+    code: string;
+    feet: number;
+    meters: number;
+    text: string;
+  }>;
+  dewpoint: {
+    celsius: number;
+    fahrenheit: number;
+  };
+  elevation: {
+    feet: number;
+    meters: number;
+  };
+  flightCategory: string;
+  humidity: {
+    percent: number;
+  };
+  icao: string;
+  lat: number;
+  lon: number;
+  name: string;
+  observed: string;
+  rawOb: string;
+  seaLevelPressure: {
+    hg: number;
+    hpa: number;
+    kpa: number;
+    mb: number;
+  };
+  station: {
+    geometry: {
+      coordinates: [number, number];
+      type: string;
+    };
+    properties: {
+      elevation: {
+        unitCode: string;
+        value: number;
+      };
+      station: string;
+      timestamp: string;
+    };
+    type: string;
+  };
+  temperature: {
+    celsius: number;
+    fahrenheit: number;
+  };
+  textDescription: string;
+  visibility: {
+    miles: string;
+    milesFloat: number;
+  };
+  wind: {
+    degrees: number;
+    speedKmph: number;
+    speedKts: number;
+    speedMph: number;
+    speedMps: number;
+  };
+}
+
+export interface FoodishImage {
+  image: string;
+}
+
+export interface MealDB {
+  meals: Array<{
+    idMeal: string;
+    strMeal: string;
+    strMealAlternate: string | null;
+    strCategory: string;
+    strArea: string;
+    strInstructions: string;
+    strMealThumb: string;
+    strTags: string | null;
+    strYoutube: string | null;
+    strIngredient1: string | null;
+    strIngredient2: string | null;
+    strIngredient3: string | null;
+    strIngredient4: string | null;
+    strIngredient5: string | null;
+    strIngredient6: string | null;
+    strIngredient7: string | null;
+    strIngredient8: string | null;
+    strIngredient9: string | null;
+    strIngredient10: string | null;
+    strIngredient11: string | null;
+    strIngredient12: string | null;
+    strIngredient13: string | null;
+    strIngredient14: string | null;
+    strIngredient15: string | null;
+    strIngredient16: string | null;
+    strIngredient17: string | null;
+    strIngredient18: string | null;
+    strIngredient19: string | null;
+    strIngredient20: string | null;
+    strMeasure1: string | null;
+    strMeasure2: string | null;
+    strMeasure3: string | null;
+    strMeasure4: string | null;
+    strMeasure5: string | null;
+    strMeasure6: string | null;
+    strMeasure7: string | null;
+    strMeasure8: string | null;
+    strMeasure9: string | null;
+    strMeasure10: string | null;
+    strMeasure11: string | null;
+    strMeasure12: string | null;
+    strMeasure13: string | null;
+    strMeasure14: string | null;
+    strMeasure15: string | null;
+    strMeasure16: string | null;
+    strMeasure17: string | null;
+    strMeasure18: string | null;
+    strMeasure19: string | null;
+    strMeasure20: string | null;
+    strSource: string | null;
+    strImageSource: string | null;
+    strCreativeCommonsConfirmed: string | null;
+    dateModified: string | null;
+  }>;
+}
+
 // Generic API response wrapper
 export interface ApiResponse<T> {
   data: T;

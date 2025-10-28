@@ -16,15 +16,33 @@ import {
   CryptoPrice, 
   ProgrammingJoke, 
   WikipediaArticle,
+  AirQuality,
+  GoldPrice,
+  CurrencyExchange,
+  OilPrice,
+  WeatherData,
+  StockPrice,
+  NewsArticle,
+  SpaceData,
+  AviationWeather,
+  FoodishImage,
+  MealDB,
   ApiResponse 
 } from '@/types/api';
 
-// Helper function to measure load time
+// Helper function to measure load time with better error handling
 async function measureLoadTime<T>(fn: () => Promise<T>): Promise<{ data: T; loadTime: number }> {
   const startTime = Date.now();
-  const data = await fn();
-  const loadTime = Date.now() - startTime;
-  return { data, loadTime };
+  try {
+    const data = await fn();
+    const loadTime = Date.now() - startTime;
+    return { data, loadTime };
+  } catch (error) {
+    const loadTime = Date.now() - startTime;
+    // Create a simple error message that can be serialized
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error(errorMessage);
+  }
 }
 
 // JSONPlaceholder APIs
@@ -58,21 +76,21 @@ export async function getJsonPlaceholderUsers(): Promise<ApiResponse<JsonPlaceho
   };
 }
 
-// Random User API
-export async function getRandomUsers(): Promise<ApiResponse<RandomUser>> {
-  const { data, loadTime } = await measureLoadTime(async () => {
-    const response = await fetch('https://randomuser.me/api/?results=3');
-    if (!response.ok) throw new Error('Failed to fetch random users');
-    return response.json();
-  });
-  
-  return {
-    data,
-    timestamp: Date.now(),
-    source: 'Random User API',
-    loadTime
-  };
-}
+// Random User API - COMMENTED OUT due to Cloudflare blocking
+// export async function getRandomUsers(): Promise<ApiResponse<RandomUser>> {
+//   const { data, loadTime } = await measureLoadTime(async () => {
+//     const response = await fetch('https://randomuser.me/api/?results=3');
+//     if (!response.ok) throw new Error('Failed to fetch random users');
+//     return response.json();
+//   });
+//   
+//   return {
+//     data,
+//     timestamp: Date.now(),
+//     source: 'Random User API',
+//     loadTime
+//   };
+// }
 
 // Dog CEO API
 export async function getDogImage(): Promise<ApiResponse<DogImage>> {
@@ -227,13 +245,102 @@ export async function getWikipediaArticle(): Promise<ApiResponse<WikipediaArticl
 }
 
 // Function to get all API data (removed problematic APIs)
+// New API functions for financial and environmental data
+
+// Air Quality API (using aqicn.org - free tier)
+export async function getAirQuality(): Promise<ApiResponse<AirQuality>> {
+  const { data, loadTime } = await measureLoadTime(async () => {
+    const response = await fetch('https://api.waqi.info/feed/bangkok/?token=demo');
+    if (!response.ok) throw new Error('Failed to fetch air quality data');
+    return response.json();
+  });
+  
+  return {
+    data,
+    timestamp: Date.now(),
+    source: 'Air Quality API',
+    loadTime
+  };
+}
+
+
+// Currency Exchange API (using exchangerate-api.com - free tier)
+export async function getCurrencyExchange(): Promise<ApiResponse<CurrencyExchange>> {
+  const { data, loadTime } = await measureLoadTime(async () => {
+    const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+    if (!response.ok) throw new Error('Failed to fetch currency exchange rates');
+    return response.json();
+  });
+  
+  return {
+    data,
+    timestamp: Date.now(),
+    source: 'Currency Exchange API',
+    loadTime
+  };
+}
+
+// Aviation Weather API (using aviationweather.gov - free tier)
+export async function getAviationWeather(): Promise<ApiResponse<AviationWeather>> {
+  const { data, loadTime } = await measureLoadTime(async () => {
+    const response = await fetch('https://aviationweather.gov/api/data/metar?ids=KJFK,KLAX,KORD,KDFW,KATL&format=json');
+    if (!response.ok) throw new Error('Failed to fetch aviation weather data');
+    return response.json();
+  });
+  
+  return {
+    data,
+    timestamp: Date.now(),
+    source: 'Aviation Weather API',
+    loadTime
+  };
+}
+
+// Foodish API (using foodish-api.com - free tier)
+export async function getFoodishImage(): Promise<ApiResponse<FoodishImage>> {
+  const { data, loadTime } = await measureLoadTime(async () => {
+    const response = await fetch('https://foodish-api.com/api/');
+    if (!response.ok) throw new Error('Failed to fetch food image');
+    return response.json();
+  });
+  
+  return {
+    data,
+    timestamp: Date.now(),
+    source: 'Foodish API',
+    loadTime
+  };
+}
+
+// MealDB API (using themeadb.com - free tier)
+export async function getMealDB(): Promise<ApiResponse<MealDB>> {
+  const { data, loadTime } = await measureLoadTime(async () => {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+    if (!response.ok) throw new Error('Failed to fetch meal data');
+    return response.json();
+  });
+  
+  return {
+    data,
+    timestamp: Date.now(),
+    source: 'MealDB API',
+    loadTime
+  };
+}
+
+
+
+
+
+
+// Get all APIs (updated with real APIs only)
 export async function getAllApiData() {
   const startTime = Date.now();
   
   const [
     posts,
     users,
-    randomUsers,
+    // randomUsers, // COMMENTED OUT due to Cloudflare blocking
     dogImage,
     catFact,
     adviceSlip,
@@ -242,11 +349,15 @@ export async function getAllApiData() {
     pokemon,
     cryptoPrices,
     programmingJoke,
-    wikipediaArticle
+    wikipediaArticle,
+    airQuality,
+    currencyExchange,
+    aviationWeather,
+    mealDB
   ] = await Promise.allSettled([
     getJsonPlaceholderPosts(),
     getJsonPlaceholderUsers(),
-    getRandomUsers(),
+    // getRandomUsers(), // COMMENTED OUT due to Cloudflare blocking
     getDogImage(),
     getCatFact(),
     getAdviceSlip(),
@@ -255,16 +366,20 @@ export async function getAllApiData() {
     getPokemon(),
     getCryptoPrices(),
     getProgrammingJoke(),
-    getWikipediaArticle()
+    getWikipediaArticle(),
+    getAirQuality(),
+    getCurrencyExchange(),
+    getAviationWeather(),
+    getMealDB()
   ]);
 
-  const totalLoadTime = Date.now() - startTime;
+  const totalTime = Date.now() - startTime;
   
   return {
     results: [
       posts,
       users,
-      randomUsers,
+      // randomUsers, // COMMENTED OUT due to Cloudflare blocking
       dogImage,
       catFact,
       adviceSlip,
@@ -273,9 +388,13 @@ export async function getAllApiData() {
       pokemon,
       cryptoPrices,
       programmingJoke,
-      wikipediaArticle
+      wikipediaArticle,
+      airQuality,
+      currencyExchange,
+      aviationWeather,
+      mealDB
     ],
-    totalLoadTime,
+    totalTime,
     timestamp: Date.now()
   };
 }

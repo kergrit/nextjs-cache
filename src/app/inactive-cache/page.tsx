@@ -32,7 +32,7 @@ export default async function InactiveCachePage() {
             </div>
             <div className="text-right">
               <div className="text-sm text-blue-600">
-                <div>Total API calls: 12</div>
+                <div>Total API calls: {apiData.results.length}</div>
                 <div>Cache status: <span className="font-bold text-red-600">DISABLED</span></div>
               </div>
             </div>
