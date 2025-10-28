@@ -10,11 +10,11 @@ export default function HomePage() {
         </h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Compare the performance difference between uncached and cached API calls 
-          using Next.js 14 caching strategies with 15 different APIs.
+          using Next.js 16 caching strategies with 15 different APIs.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 mb-12">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex items-center mb-4">
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
@@ -81,6 +81,42 @@ export default function HomePage() {
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors"
           >
             View Phase 2
+            <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </Link>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <div className="flex items-center mb-4">
+            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+              <span className="text-2xl">🚀</span>
+            </div>
+            <h2 className="text-2xl font-semibold text-gray-900">Phase 3: Full Route Cache</h2>
+          </div>
+          <p className="text-gray-600 mb-6">
+            Static HTML generation with ISR (Incremental Static Regeneration) for the fastest 
+            possible response time. Perfect for CDN distribution.
+          </p>
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center text-sm text-gray-500">
+              <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+              Static HTML pre-rendered
+            </div>
+            <div className="flex items-center text-sm text-gray-500">
+              <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+              ISR with 60s revalidation
+            </div>
+            <div className="flex items-center text-sm text-gray-500">
+              <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+              Fastest response time (~1-5ms)
+            </div>
+          </div>
+          <Link 
+            href="/full-route-cache"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition-colors"
+          >
+            View Phase 3
             <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>

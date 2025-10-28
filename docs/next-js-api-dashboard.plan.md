@@ -2,7 +2,7 @@
 
 ## Overview
 
-Build a Next.js 14+ application using App Router, TypeScript, and Tailwind CSS that displays data from multiple open APIs in a single-page list view.
+Build a Next.js 16 application using App Router, TypeScript, and Tailwind CSS that displays data from multiple open APIs in a single-page list view.
 
 ## API Selection (15-20 Open APIs)
 
@@ -61,7 +61,7 @@ Build the application with standard API fetching to establish baseline functiona
 
 1. **Project Setup**
 
-   - Initialize Next.js 14+ with TypeScript
+   - Initialize Next.js 16 with TypeScript
    - Configure Tailwind CSS
    - Set up project structure
 
@@ -184,7 +184,7 @@ Apply various caching strategies to improve performance and reduce API calls on 
 
 **Phase 1:**
 
-- Server-side data fetching using Next.js 14 App Router
+- Server-side data fetching using Next.js 16 App Router
 - TypeScript for type safety
 - Error boundaries for failed API calls
 - Responsive grid layout

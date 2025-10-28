@@ -26,8 +26,14 @@ export default function Navigation() {
               Phase 2: With Cache
             </Link>
             <Link 
-              href="/comparison" 
+              href="/full-route-cache" 
               className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              Phase 3: Full Route
+            </Link>
+            <Link 
+              href="/comparison" 
+              className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
             >
               📊 Comparison
             </Link>

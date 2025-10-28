@@ -2,7 +2,7 @@
 
 ## Overview
 
-Build a Next.js 14+ application using App Router, TypeScript, and Tailwind CSS that displays data from multiple open APIs in a single-page list view.
+Build a Next.js 16 application using App Router, TypeScript, and Tailwind CSS that displays data from multiple open APIs in a single-page list view.
 
 ## Current Status
 
@@ -220,6 +220,27 @@ Applied caching strategies on `/active-cache` route.
 
 
 ## Next Steps / Future Enhancements
+
+### Phase 3: Full Route Cache (🔄 In Progress)
+
+**Goal**: Implement Full Route Cache with ISR (Incremental Static Regeneration)
+
+**Implementation Plan**:
+1. Create `/full-route-cache` route with static generation
+2. Use ISR with 60-second revalidation
+3. Compare performance with Phase 1 and Phase 2
+4. Update comparison page to include all 3 phases
+5. Document Full Route Cache benefits and use cases
+
+**Expected Performance**:
+- Static HTML generation at build time
+- Response time: ~1-5ms (fastest possible)
+- CDN-friendly for edge deployment
+- Periodic revalidation every 60 seconds
+
+**See**: `docs/PHASE3_FULL_ROUTE_CACHE.md` for detailed plan
+
+### Future Enhancements
 
 1. Add cache statistics dashboard
 2. Implement real-time cache monitoring

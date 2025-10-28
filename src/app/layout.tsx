@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Next.js Cache Demo",
-  description: "Demonstration of caching strategies in Next.js 14",
+  description: "Demonstration of caching strategies in Next.js 16",
 };
 
 export default function RootLayout({

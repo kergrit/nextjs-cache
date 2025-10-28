@@ -67,8 +67,9 @@ docker-compose up -d
 ## Architecture
 
 - **Phase 1** (`/inactive-cache`): Direct API calls, no caching
-- **Phase 2** (`/active-cache`): Next.js fetch cache with revalidation
-- **Comparison** (`/comparison`): Side-by-side performance comparison
+- **Phase 2** (`/active-cache`): Next.js 16 fetch cache with revalidation
+- **Phase 3** (`/full-route-cache`): Full Route Cache with ISR (Static Generation)
+- **Comparison** (`/comparison`): Side-by-side performance comparison of all 3 phases
 
 ## Cache Strategy
 
